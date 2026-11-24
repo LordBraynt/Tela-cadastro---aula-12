@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entrega Final — Interruptor Interativo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #12161f;
+      color: #f4f6fb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      transition: background-color 0.3s ease;
+    }
+    body.ambiente-aceso {
+      background-color: #262216;
+    }
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background-color: #1c2230;
+      border: 1px solid #2d3748;
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+    h1 { font-size: 1.6rem; margin-bottom: 8px; }
+    .subtitulo { font-size: 0.95rem; color: #b8c2d6; margin-bottom: 24px; }
+    .lampada-box {
+      border-radius: 14px;
+      padding: 28px 16px;
+      margin-bottom: 24px;
+      background-color: #141822;
+      border: 2px solid #334155;
+      color: #f4f6fb;
+      transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    }
+    .lampada-box.ligada {
+      background-color: #fff3b0;
+      color: #1e293b;
+      border: 2px solid #f59e0b;
+      box-shadow: 0 0 28px rgba(251, 191, 36, 0.45);
+    }
+    .icone { font-size: 3.2rem; display: block; margin-bottom: 10px; }
+    .estado { font-size: 1.1rem; font-weight: 700; }
+    .botao {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #2563eb;
+      color: #ffffff;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .botao:hover { background-color: #1d4ed8; }
+    .botao:active { transform: scale(0.99); }
+    .contador { margin-top: 16px; font-size: 0.9rem; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Interruptor Inteligente</h1>
+    <p class="subtitulo">Clique no botão para alternar entre ligado e desligado.</p>
+
+    <div id="area-lampada" class="lampada-box">
+      <span id="icone-lampada" class="icone">💡</span>
+      <p id="estado-texto" class="estado">Estado: Desligada</p>
+    </div>
+
+    <button id="btn-interruptor" type="button" class="botao" onclick="alternarLampada()">Ligar lâmpada</button>
+    <p id="contador-cliques" class="contador">Cliques realizados: 0</p>
+  </main>
+
+  <script>
+    let ligada = false;
+    let cliques = 0;
+
+    function alternarLampada() {
+      const btn = document.getElementById("btn-interruptor");
+      const box = document.getElementById("area-lampada");
+      const icone = document.getElementById("icone-lampada");
+      const texto = document.getElementById("estado-texto");
+      const contador = document.getElementById("contador-cliques");
+
+      cliques++;
+      contador.textContent = "Cliques realizados: " + cliques;
+
+      if (!ligada) {
+        ligada = true;
+        document.body.classList.add("ambiente-aceso");
+        box.classList.add("ligada");
+        icone.textContent = "🔆";
+        texto.textContent = "Estado: Ligada";
+        btn.textContent = "Desligar lâmpada";
+      } else {
+        ligada = false;
+        document.body.classList.remove("ambiente-aceso");
+        box.classList.remove("ligada");
+        icone.textContent = "💡";
+        texto.textContent = "Estado: Desligada";
+        btn.textContent = "Ligar lâmpada";
+      }
+    }
+  </script>
+</body>
+</html>
